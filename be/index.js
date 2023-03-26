@@ -9,22 +9,34 @@ const app = express()
 const MONGO_CONNECTION_STRING = "mongodb+srv://bilguun-enkh:JV341KR5DHasM50q@mernstackpineconedb.mwhgdhi.mongodb.net/test"
 
 app.use(express.json())
-app.use(cors())
+app.use(cors());
 
-app.get('/', (req, res) => {
-    res.status(200).send("<h1>email-newsletter</h1>")
+app.post('/email', (request, response) => {
+    try {
+        const body = request.body
+        console.log(body)
+        response.json({
+            status: 'Success',
+            data: body
+        })
+    } catch (error) {
+        response.status(400).json({
+            status: 'Error',
+            message: 'Invalid JSON data'
+        })
+    }
 })
 
-app.post('/email', (req, res) => {
-    const body = req.body
+app.post('/email', (request, response) => {
+    const body = request.body
     console.log(body)
-    res.json({
+    response.json({
         status: 'Success',
         data: body
     })
 })
 
-app.listen(PORT, () =>{
+app.listen(PORT, () => {
     mongoose
         .connect(MONGO_CONNECTION_STRING)
         .then(() => console.log("Database connected succesfully"))
