@@ -11,13 +11,22 @@ const MONGO_CONNECTION_STRING = "mongodb+srv://bilguun-enkh:JV341KR5DHasM50q@mer
 app.use(express.json())
 app.use(cors());
 
+const data = [
+    {
+        email: "123"
+    },
+    {
+        email: "1234"
+    }
+]
+
 app.post('/email', (request, response) => {
     try {
         const body = request.body
         console.log(body)
         response.json({
             status: 'Success',
-            data: body
+            data: data
         })
     } catch (error) {
         response.status(400).json({

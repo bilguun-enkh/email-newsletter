@@ -6,7 +6,7 @@ export default function EmailDashboard() {
     async function handleSubmit(e) {
         e.preventDefault()
         const data = { email: e.target.email.value }
-        console.log(data)
+        // console.log(data)
 
         const options = {
             method: "POST",
@@ -18,8 +18,8 @@ export default function EmailDashboard() {
 
         const FETCHED_DATA = await fetch(URL, options)
         const FETCHED_JSON = await FETCHED_DATA.json()
-        console.log(FETCHED_JSON)
-        setCurrentEmail(FETCHED_JSON.data.email)
+        console.log(FETCHED_JSON.data[1])
+        setCurrentEmail(FETCHED_JSON.data)
     }
 
     return (
@@ -32,13 +32,14 @@ export default function EmailDashboard() {
                 </label>
                 <button type="submit" style={{ width: "100px" }} >Submit</button>
             </form>
-            {currentEmail}
-            {/* {currentEmail && currentEmail.map((currentEmail, index) => {
+            {/* {currentEmail} */}
+            {currentEmail && currentEmail.map((currentEmail, index) => {
                 return (
-                    <div key={index}><h3>{currentEmail}</h3>
+                    <div key={index}>
+                        <h3>{currentEmail.email}</h3>
                     </div>
                 )
-            })} */}
+            })}
         </div>
     )
 }
